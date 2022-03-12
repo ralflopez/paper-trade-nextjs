@@ -15,7 +15,6 @@ export const withAuthenticatedUser = (callback: Function) => {
         context,
         fetchPolicy: "network-only",
       })
-
       extendedContext.req.user = data.getMyUser
       return callback(context)
     } catch (e) {
@@ -23,7 +22,7 @@ export const withAuthenticatedUser = (callback: Function) => {
       return {
         props: {},
         redirect: {
-          destination: "/forbidden",
+          destination: "/auth/login",
         },
       }
     }

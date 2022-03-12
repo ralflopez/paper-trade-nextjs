@@ -5,7 +5,7 @@ import {
   withUser,
 } from "../lib/auth/withUser"
 import { NexusGenObjects } from "../types/nexus-typegen"
-
+import "react-toastify/dist/ReactToastify.css"
 interface Props {
   user: NexusGenObjects["User"] | null
 }

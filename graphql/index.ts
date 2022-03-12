@@ -6,7 +6,6 @@ import {
   fromPromise,
   DefaultOptions,
 } from "@apollo/client"
-import { ACCESS_TOKEN_KEY } from "../config/constants"
 import { REFRESH_TOKEN } from "./query/auth"
 import { onError } from "apollo-link-error"
 import { getAccessToken } from "../lib/auth/accessTokenCookie"
@@ -14,11 +13,11 @@ import { getAccessToken } from "../lib/auth/accessTokenCookie"
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: "no-cache",
-    errorPolicy: "ignore",
+    // errorPolicy: "all",
   },
   query: {
     fetchPolicy: "no-cache",
-    errorPolicy: "all",
+    // errorPolicy: "all",
   },
 }
 
