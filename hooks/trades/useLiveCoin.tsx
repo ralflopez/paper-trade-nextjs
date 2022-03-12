@@ -34,19 +34,23 @@ const useLiveCoin = (ids: string = "ALL") => {
   // get initial data
   useEffect(() => {
     const getAssets = async () => {
-      const result = await fetch(
-        ids === "ALL"
-          ? "https://api.coincap.io/v2/assets"
-          : `https://api.coincap.io/v2/assets?ids=${ids}`
-      )
-      const { data }: { data: CoinCapIo_Asset[] } = await result.json()
-      console.log(data)
-      // store
-      const format: CryptoHash = {}
-      data.forEach((d: CoinCapIo_Asset) => {
-        format[d.id] = d
-      })
-      setCryptos(format)
+      try {
+        const result = await fetch(
+          ids === "ALL"
+            ? "https://api.coincap.io/v2/assets"
+            : `https://api.coincap.io/v2/assets?ids=${ids}`
+        )
+        const { data }: { data: CoinCapIo_Asset[] } = await result.json()
+        console.log(data)
+        // store
+        const format: CryptoHash = {}
+        data.forEach((d: CoinCapIo_Asset) => {
+          format[d.id] = d
+        })
+        setCryptos(format)
+      } catch (e) {
+        setCryptos({})
+      }
     }
 
     getAssets()
