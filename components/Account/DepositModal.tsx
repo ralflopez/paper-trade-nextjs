@@ -1,8 +1,7 @@
 import { useMutation } from "@apollo/client"
 import React, { useState } from "react"
 import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import { DEPOSIT } from "../../graphql/query/account/account"
+import { DEPOSIT } from "../../graphql/query/account/deposit"
 import { GET_MY_PORFOLIO } from "../../graphql/query/account/portfolio"
 import Modal from "../General/Modal"
 
@@ -32,7 +31,7 @@ const DepositModal = ({ open, setOpen, refetch }: Props) => {
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value)
     if (value < 0) return
-    if (value > 1) setDisabled(false)
+    if (value > 0) setDisabled(false)
     else setDisabled(true)
     setAmount(e.target.value)
   }
@@ -40,7 +39,7 @@ const DepositModal = ({ open, setOpen, refetch }: Props) => {
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const value = Number(amount)
-    if (value < 1) return
+    if (value <= 0) return
     toast.info("Tranasction Loading...")
     await handleDeposit(value)
     toast.success("Desposit Successful")
