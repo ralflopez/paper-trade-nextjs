@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import React, { useState } from "react"
 import { toast } from "react-toastify"
-import { DEPOSIT } from "../../graphql/query/account/deposit"
+import { DEPOSIT } from "../../graphql/query/account/fund"
 import { GET_MY_PORFOLIO } from "../../graphql/query/account/portfolio"
 import Modal from "../General/Modal"
 

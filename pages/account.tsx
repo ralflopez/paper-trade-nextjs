@@ -2,6 +2,7 @@ import { useLazyQuery } from "@apollo/client"
 import { GetServerSideProps } from "next"
 import React, { useEffect, useState } from "react"
 import DepositModal from "../components/Account/DepositModal"
+import WithdrawModal from "../components/Account/WithdrawModal"
 import { GET_MY_PORFOLIO } from "../graphql/query/account/portfolio"
 import usePortfolio from "../hooks/usePortfolio"
 import { withAuthenticatedUser } from "../lib/auth/withAuthenticatedUser"
@@ -14,10 +15,15 @@ interface Props {
 
 const Account = ({ user }: Props) => {
   const [showDepositModal, setDepositModal] = useState(false)
+  const [showWithdrawModal, setWithdrawModal] = useState(false)
   const { portfolioData, portfolioQuery, portfolioError } = usePortfolio()
 
   const toggleDepositModal = () => {
     setDepositModal((s) => !s)
+  }
+
+  const toggleWithdrawModal = () => {
+    setWithdrawModal((s) => !s)
   }
 
   return (
@@ -25,6 +31,11 @@ const Account = ({ user }: Props) => {
       <DepositModal
         open={showDepositModal}
         setOpen={setDepositModal}
+        refetch={portfolioQuery}
+      />
+      <WithdrawModal
+        open={showWithdrawModal}
+        setOpen={setWithdrawModal}
         refetch={portfolioQuery}
       />
       <div>
@@ -50,7 +61,7 @@ const Account = ({ user }: Props) => {
       </div>
       <div>
         <button onClick={toggleDepositModal}>Deposit</button>
-        <button>Withdraw</button>
+        <button onClick={toggleWithdrawModal}>Withdraw</button>
       </div>
     </div>
   )

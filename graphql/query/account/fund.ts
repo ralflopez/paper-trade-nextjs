@@ -7,3 +7,10 @@ export const DEPOSIT = gql`
     }
   }
 `
+export const WITHDRAW = gql`
+  mutation Withdraw($amount: Float!) {
+    withdraw(amount: $amount) {
+      amount
+    }
+  }
+`
