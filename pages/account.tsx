@@ -39,11 +39,11 @@ const Account = ({ user }: Props) => {
         ) : null}
         {portfolioData
           ? portfolioData.myPortfolio.allocation.map((a) => (
-              <div key={a.assetId}>
-                <p>{a.symbol}</p>
-                <p>{a.assetId}</p>
-                <p>{a.average.toFixed(2)}</p>
-                <p>{a.total}</p>
+              <div key={a.assetId} className='mt-4 bg-red-300'>
+                <p>Symbol: {a.symbol}</p>
+                <p>Asset: {a.assetId}</p>
+                <p>Average Price: {a.average.toFixed(2)}</p>
+                <p>Total: {a.total}</p>
               </div>
             ))
           : null}
