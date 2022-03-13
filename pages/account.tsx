@@ -1,6 +1,6 @@
-import { useQuery } from "@apollo/client"
+import { useLazyQuery } from "@apollo/client"
 import { GetServerSideProps } from "next"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import DepositModal from "../components/Account/DepositModal"
@@ -15,13 +15,14 @@ interface Props {
 
 const Account = ({ user }: Props) => {
   const [showDepositModal, setDepositModal] = useState(false)
-  const {
-    loading: portfolioLoading,
-    error: portfolioError,
-    data: portfolioData,
-  } = useQuery<{ myPortfolio: NexusGenObjects["PortfolioOutput"] }>(
-    GET_MY_PORFOLIO
-  )
+  const [portfolioQuery, { error: portfolioError, data: portfolioData }] =
+    useLazyQuery<{ myPortfolio: NexusGenObjects["PortfolioOutput"] }>(
+      GET_MY_PORFOLIO
+    )
+
+  useEffect(() => {
+    portfolioQuery()
+  }, [portfolioQuery])
 
   const toggleDepositModal = () => {
     setDepositModal((s) => !s)
@@ -30,7 +31,11 @@ const Account = ({ user }: Props) => {
   return (
     <div>
       <ToastContainer hideProgressBar={true} />
-      <DepositModal open={showDepositModal} setOpen={setDepositModal} />
+      <DepositModal
+        open={showDepositModal}
+        setOpen={setDepositModal}
+        refetch={portfolioQuery}
+      />
       <div>
         <p>{user.email}</p>
         <p>{user.name}</p>
@@ -38,6 +43,19 @@ const Account = ({ user }: Props) => {
       <div>
         <h3>Portfolio</h3>
         {portfolioError ? <div>{portfolioError.message}</div> : null}
+        {portfolioData ? (
+          <div>{portfolioData.myPortfolio.buyingPower}</div>
+        ) : null}
+        {portfolioData
+          ? portfolioData.myPortfolio.allocation.map((a) => (
+              <div key={a.assetId}>
+                <p>{a.symbol}</p>
+                <p>{a.assetId}</p>
+                <p>{a.average}</p>
+                <p>{a.total}</p>
+              </div>
+            ))
+          : null}
       </div>
       <div>
         <button onClick={toggleDepositModal}>Deposit</button>

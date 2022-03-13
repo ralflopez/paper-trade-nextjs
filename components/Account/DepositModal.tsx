@@ -2,16 +2,20 @@ import { useMutation } from "@apollo/client"
 import React, { useState } from "react"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { DEPOSIT } from "../../graphql/query/account/deposit"
+import { DEPOSIT } from "../../graphql/query/account/account"
+import { GET_MY_PORFOLIO } from "../../graphql/query/account/portfolio"
 import Modal from "../General/Modal"
 
 interface Props {
   open: boolean
   setOpen: Function
+  refetch: Function // function that will be run after mutation for rerendering the parent
 }
 
-const DepositModal = ({ open, setOpen }: Props) => {
-  const [deposit, { error }] = useMutation(DEPOSIT)
+const DepositModal = ({ open, setOpen, refetch }: Props) => {
+  const [deposit, { error }] = useMutation(DEPOSIT, {
+    refetchQueries: [{ query: GET_MY_PORFOLIO }],
+  })
   const [amount, setAmount] = useState("")
   const [disabled, setDisabled] = useState(true)
 
@@ -40,6 +44,8 @@ const DepositModal = ({ open, setOpen }: Props) => {
     toast.info("Tranasction Loading...")
     await handleDeposit(value)
     toast.success("Desposit Successful")
+    await refetch()
+    toggle()
   }
 
   const toggle = () => {
