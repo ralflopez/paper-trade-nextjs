@@ -1,10 +1,9 @@
 import { useLazyQuery } from "@apollo/client"
 import { GetServerSideProps } from "next"
 import React, { useEffect, useState } from "react"
-import { ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 import DepositModal from "../components/Account/DepositModal"
 import { GET_MY_PORFOLIO } from "../graphql/query/account/portfolio"
+import usePortfolio from "../hooks/usePortfolio"
 import { withAuthenticatedUser } from "../lib/auth/withAuthenticatedUser"
 import { GetServerSidePropsContextExtended } from "../lib/auth/withUser"
 import { NexusGenObjects } from "../types/nexus-typegen"
@@ -15,14 +14,7 @@ interface Props {
 
 const Account = ({ user }: Props) => {
   const [showDepositModal, setDepositModal] = useState(false)
-  const [portfolioQuery, { error: portfolioError, data: portfolioData }] =
-    useLazyQuery<{ myPortfolio: NexusGenObjects["PortfolioOutput"] }>(
-      GET_MY_PORFOLIO
-    )
-
-  useEffect(() => {
-    portfolioQuery()
-  }, [portfolioQuery])
+  const { portfolioData, portfolioQuery, portfolioError } = usePortfolio()
 
   const toggleDepositModal = () => {
     setDepositModal((s) => !s)
@@ -30,7 +22,6 @@ const Account = ({ user }: Props) => {
 
   return (
     <div>
-      <ToastContainer hideProgressBar={true} />
       <DepositModal
         open={showDepositModal}
         setOpen={setDepositModal}
@@ -51,7 +42,7 @@ const Account = ({ user }: Props) => {
               <div key={a.assetId}>
                 <p>{a.symbol}</p>
                 <p>{a.assetId}</p>
-                <p>{a.average}</p>
+                <p>{a.average.toFixed(2)}</p>
                 <p>{a.total}</p>
               </div>
             ))
