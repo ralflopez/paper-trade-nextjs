@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import DepositModal from "../components/Account/DepositModal"
 import WithdrawModal from "../components/Account/WithdrawModal"
 import BuyModal from "../components/Trade/BuyModal"
+import SellModal from "../components/Trade/SellModal"
 import { GET_MY_PORFOLIO } from "../graphql/query/account/portfolio"
 import usePortfolio from "../hooks/usePortfolio"
 import { withAuthenticatedUser } from "../lib/auth/withAuthenticatedUser"
@@ -17,9 +18,6 @@ interface Props {
 const Account = ({ user }: Props) => {
   const [showDepositModal, setDepositModal] = useState(false)
   const [showWithdrawModal, setWithdrawModal] = useState(false)
-  const [showBuyModal, setBuyModal] = useState(false)
-  const [showSellModal, setSellModal] = useState(false)
-  const [currentAsset, setCurrentAsset] = useState<CoinCapIo_Asset>()
   const { portfolioData, portfolioQuery, portfolioError } = usePortfolio()
 
   const toggleDepositModal = () => {
@@ -44,15 +42,6 @@ const Account = ({ user }: Props) => {
             setOpen={setWithdrawModal}
             refetch={portfolioQuery}
           />
-          {currentAsset && (
-            <BuyModal
-              currentAsset={currentAsset}
-              open={showBuyModal}
-              setOpen={setBuyModal}
-              refetch={portfolioQuery}
-              myPortfolio={portfolioData.myPortfolio}
-            />
-          )}
         </>
       )}
       <div>

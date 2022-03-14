@@ -25,3 +25,14 @@ export const BUY = gql`
     }
   }
 `
+
+export const SELL = gql`
+  mutation Sell($amount: Float!, $assetId: String!) {
+    sell(amount: $amount, assetId: $assetId) {
+      amount
+      assetId
+      symbol
+      valueUsd
+    }
+  }
+`

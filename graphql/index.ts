@@ -8,7 +8,7 @@ import {
 } from "@apollo/client"
 import { REFRESH_TOKEN } from "./query/auth"
 import { onError } from "apollo-link-error"
-import { getAccessToken } from "../lib/auth/accessTokenCookie"
+import { getAccessToken, setAccessToken } from "../lib/auth/accessTokenCookie"
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -43,6 +43,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const getNewToken = async () => {
   const result = await client.query({ query: REFRESH_TOKEN })
+  setAccessToken(result.data.refreshToken.token)
   return result.data.refreshToken.token
 }
 
