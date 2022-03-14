@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client"
 import React, { useState } from "react"
 import { toast } from "react-toastify"
 import { GET_MY_PORFOLIO } from "../../graphql/query/account/portfolio"
-import { BUY, SELL } from "../../graphql/query/account/transaction"
+import { SELL } from "../../graphql/query/account/transaction"
 import { NexusGenObjects } from "../../types/nexus-typegen"
 import Modal from "../General/Modal"
 
@@ -29,8 +29,6 @@ const SellModal = ({
   const allocation = myPortfolio.allocation.find(
     (a) => a.assetId == currentAsset.id
   )
-
-  console.log(allocation)
 
   const handleBuy = (amount: number) => {
     return sell({

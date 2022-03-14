@@ -9,23 +9,22 @@ interface Props {
   open: boolean
   setOpen: Function
   refetch: Function // function that will be run after mutation for rerendering the parent
+  buyingPower: number
 }
 
-const DepositModal = ({ open, setOpen, refetch }: Props) => {
+const DepositModal = ({ buyingPower, open, setOpen, refetch }: Props) => {
   const [deposit, { error }] = useMutation(DEPOSIT, {
     refetchQueries: [{ query: GET_MY_PORFOLIO }],
   })
   const [amount, setAmount] = useState("")
   const [disabled, setDisabled] = useState(true)
 
-  const handleDeposit = async (amount: number) => {
-    try {
-      await deposit({
-        variables: {
-          amount,
-        },
-      })
-    } catch (e) {}
+  const handleDeposit = (amount: number) => {
+    return deposit({
+      variables: {
+        amount,
+      },
+    })
   }
 
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,22 +39,25 @@ const DepositModal = ({ open, setOpen, refetch }: Props) => {
     e.preventDefault()
     const value = Number(amount)
     if (value <= 0) return
-    toast.info("Tranasction Loading...")
-    await handleDeposit(value)
-    toast.success("Desposit Successful")
-    await refetch()
-    toggle()
+    try {
+      toast.info("Tranasction Loading...")
+      await handleDeposit(value)
+      toast.success("Desposit Successful")
+      await refetch()
+      toggle()
+    } catch (e) {
+      toast.error("Deposit Error: " + error?.message)
+    }
   }
 
   const toggle = () => {
     setOpen((s: boolean) => !s)
   }
 
-  if (error) toast.error("Deposit Error: " + error.message)
-
   return open ? (
     <Modal title='Deposit' toggle={toggle}>
       <div>
+        <p>Available: {buyingPower}</p>
         <form onSubmit={handleSumbit}>
           <input
             value={amount}

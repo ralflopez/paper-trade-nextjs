@@ -36,11 +36,13 @@ const Account = ({ user }: Props) => {
             open={showDepositModal}
             setOpen={setDepositModal}
             refetch={portfolioQuery}
+            buyingPower={portfolioData.myPortfolio.buyingPower}
           />
           <WithdrawModal
             open={showWithdrawModal}
             setOpen={setWithdrawModal}
             refetch={portfolioQuery}
+            buyingPower={portfolioData.myPortfolio.buyingPower}
           />
         </>
       )}

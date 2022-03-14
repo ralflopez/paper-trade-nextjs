@@ -10,9 +10,10 @@ interface Props {
   open: boolean
   setOpen: Function
   refetch: Function // function that will be run after mutation for rerendering the parent
+  buyingPower: number
 }
 
-const WithdrawModal = ({ open, setOpen, refetch }: Props) => {
+const WithdrawModal = ({ open, setOpen, refetch, buyingPower }: Props) => {
   const [withdraw, { error }] = useMutation(WITHDRAW, {
     refetchQueries: [{ query: GET_MY_PORFOLIO }],
   })
@@ -20,14 +21,12 @@ const WithdrawModal = ({ open, setOpen, refetch }: Props) => {
   const [disabled, setDisabled] = useState(true)
   const { portfolioData } = usePortfolio()
 
-  const handleWithdraw = async (amount: number) => {
-    try {
-      await withdraw({
-        variables: {
-          amount,
-        },
-      })
-    } catch (e) {}
+  const handleWithdraw = (amount: number) => {
+    return withdraw({
+      variables: {
+        amount,
+      },
+    })
   }
 
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,24 +48,27 @@ const WithdrawModal = ({ open, setOpen, refetch }: Props) => {
     e.preventDefault()
     const value = Number(amount)
     if (value <= 0) return
-    toast.info("Tranasction Loading...")
-    await handleWithdraw(value)
-    toast.success("Withdraw Successful")
-    if (refetch) await refetch()
+    try {
+      toast.info("Tranasction Loading...")
+      await handleWithdraw(value)
+      toast.success("Withdraw Successful")
+      if (refetch) await refetch()
+      toggle()
+    } catch (e) {
+      toast.error("Withdraw Errro: " + error?.message)
+    }
     setAmount("")
-    toggle()
   }
 
   const toggle = () => {
     setOpen((s: boolean) => !s)
   }
 
-  if (error) toast.error("Deposit Error: " + error.message)
-
   return open ? (
     <Modal title='Withdraw' toggle={toggle}>
       <div>
         <form onSubmit={handleSumbit}>
+          <p>Available: {buyingPower}</p>
           <input
             value={amount}
             name='amount'
