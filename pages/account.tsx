@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next"
 import React, { useEffect, useState } from "react"
 import DepositModal from "../components/Account/DepositModal"
 import WithdrawModal from "../components/Account/WithdrawModal"
+import BuyModal from "../components/Trade/BuyModal"
 import { GET_MY_PORFOLIO } from "../graphql/query/account/portfolio"
 import usePortfolio from "../hooks/usePortfolio"
 import { withAuthenticatedUser } from "../lib/auth/withAuthenticatedUser"
@@ -16,6 +17,9 @@ interface Props {
 const Account = ({ user }: Props) => {
   const [showDepositModal, setDepositModal] = useState(false)
   const [showWithdrawModal, setWithdrawModal] = useState(false)
+  const [showBuyModal, setBuyModal] = useState(false)
+  const [showSellModal, setSellModal] = useState(false)
+  const [currentAsset, setCurrentAsset] = useState<CoinCapIo_Asset>()
   const { portfolioData, portfolioQuery, portfolioError } = usePortfolio()
 
   const toggleDepositModal = () => {
@@ -28,16 +32,29 @@ const Account = ({ user }: Props) => {
 
   return (
     <div>
-      <DepositModal
-        open={showDepositModal}
-        setOpen={setDepositModal}
-        refetch={portfolioQuery}
-      />
-      <WithdrawModal
-        open={showWithdrawModal}
-        setOpen={setWithdrawModal}
-        refetch={portfolioQuery}
-      />
+      {portfolioData && (
+        <>
+          <DepositModal
+            open={showDepositModal}
+            setOpen={setDepositModal}
+            refetch={portfolioQuery}
+          />
+          <WithdrawModal
+            open={showWithdrawModal}
+            setOpen={setWithdrawModal}
+            refetch={portfolioQuery}
+          />
+          {currentAsset && (
+            <BuyModal
+              currentAsset={currentAsset}
+              open={showBuyModal}
+              setOpen={setBuyModal}
+              refetch={portfolioQuery}
+              myPortfolio={portfolioData.myPortfolio}
+            />
+          )}
+        </>
+      )}
       <div>
         <p>{user.email}</p>
         <p>{user.name}</p>

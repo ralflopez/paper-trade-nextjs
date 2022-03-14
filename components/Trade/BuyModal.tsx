@@ -3,34 +3,37 @@ import React, { useState } from "react"
 import { toast } from "react-toastify"
 import { GET_MY_PORFOLIO } from "../../graphql/query/account/portfolio"
 import { BUY } from "../../graphql/query/account/transaction"
-import usePortfolio from "../../hooks/usePortfolio"
+import { NexusGenObjects } from "../../types/nexus-typegen"
 import Modal from "../General/Modal"
 
 interface Props {
-  assetId: string
-  currentPrice: string
+  currentAsset: CoinCapIo_Asset
+  myPortfolio: NexusGenObjects["PortfolioOutput"]
   open: boolean
   setOpen: Function
   refetch?: Function // function that will be run after mutation for rerendering the parent
 }
 
-const BuyModal = ({ assetId, currentPrice, open, setOpen, refetch }: Props) => {
+const BuyModal = ({
+  currentAsset,
+  myPortfolio,
+  open,
+  setOpen,
+  refetch,
+}: Props) => {
   const [buy, { error }] = useMutation(BUY, {
     refetchQueries: [{ query: GET_MY_PORFOLIO }],
   })
-  const { portfolioData } = usePortfolio()
   const [amount, setAmount] = useState("")
   const [disabled, setDisabled] = useState(true)
 
-  const handleBuy = async (amount: number) => {
-    try {
-      await buy({
-        variables: {
-          amount,
-          assetId,
-        },
-      })
-    } catch (e) {}
+  const handleBuy = (amount: number) => {
+    return buy({
+      variables: {
+        amount,
+        assetId: currentAsset.id,
+      },
+    })
   }
 
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,19 +48,21 @@ const BuyModal = ({ assetId, currentPrice, open, setOpen, refetch }: Props) => {
     e.preventDefault()
     const value = Number(amount)
     if (value <= 0) return
-    toast.info("Tranasction Loading...")
-    await handleBuy(value)
-    toast.success("Buy Successful")
-    if (refetch) await refetch()
+    try {
+      toast.info("Tranasction Loading...")
+      await handleBuy(value)
+      if (refetch) await refetch()
+      toast.success("Buy Successful")
+      toggle()
+    } catch (e) {
+      toast.error("Deposit Error: " + error?.message)
+    }
     setAmount("")
-    toggle()
   }
 
   const toggle = () => {
     setOpen((s: boolean) => !s)
   }
-
-  if (error) toast.error("Deposit Error: " + error.message)
 
   return open ? (
     <Modal title='Buy' toggle={toggle}>
@@ -71,11 +76,9 @@ const BuyModal = ({ assetId, currentPrice, open, setOpen, refetch }: Props) => {
           />
           <div>
             Buying Power:
-            {portfolioData
-              ? portfolioData.myPortfolio.buyingPower.toFixed(2)
-              : 0}
+            {myPortfolio ? myPortfolio.buyingPower.toFixed(2) : 0}
           </div>
-          <div>Total: {Number(currentPrice) * Number(amount)}</div>
+          <div>Total: {Number(currentAsset.priceUsd) * Number(amount)}</div>
           <button disabled={disabled} type='submit'>
             Buy
           </button>
