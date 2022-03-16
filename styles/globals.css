@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.home-background {
+  background-color: #fcfbfe;
+  opacity: 0.2;
+  background-size: 58px 58px;
+  background-image: repeating-linear-gradient(
+    0deg,
+    #3861fc,
+    #3861fc 2.9000000000000004px,
+    #fcfbfe 2.9000000000000004px,
+    #fcfbfe
+  );
+}
