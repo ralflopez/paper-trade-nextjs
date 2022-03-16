@@ -4,12 +4,13 @@ import { FormEvent } from "react"
 import { client } from "../../graphql"
 import { LOGIN } from "../../graphql/query/auth"
 import { NexusGenArgTypes, NexusGenObjects } from "../../types/nexus-typegen"
-import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import { GetServerSideProps } from "next"
 import { setAccessToken } from "../../lib/auth/accessTokenCookie"
 import {
   GetServerSidePropsContextExtended,
   withUser,
 } from "../../lib/auth/withUser"
+import Container from "../../components/General/Container"
 
 const Login = () => {
   const [login, { loading, error, data }] = useMutation<
@@ -47,12 +48,38 @@ const Login = () => {
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      {error ? <div>{error.message}</div> : null}
-      <input placeholder='Email' name='email' />
-      <input placeholder='Password' name='password' type='password' />
-      <button type='submit'>Log In</button>
-    </form>
+    <Container>
+      <div className='flex justify-center'>
+        <form
+          onSubmit={handleLogin}
+          className='flex flex-col w-full p-5 rounded-md md:w-96'
+        >
+          <h2 className='text-3xl font-bold text-center mb-7'>Log in</h2>
+          {error && (
+            <div className='p-3 py-4 mb-4 text-white rounded-md bg-negative'>
+              {error.message}
+            </div>
+          )}
+          <input
+            placeholder='Email'
+            name='email'
+            className='p-3 mb-4 bg-gray-200 rounded-md outline-none focus:border-2 border-primary'
+          />
+          <input
+            placeholder='Password'
+            name='password'
+            type='password'
+            className='p-3 mb-4 bg-gray-200 rounded-md outline-none'
+          />
+          <button
+            type='submit'
+            className='p-3 mt-4 text-white transition-colors duration-300 rounded-md bg-dark hover:bg-primary'
+          >
+            Log In
+          </button>
+        </form>
+      </div>
+    </Container>
   )
 }
 
