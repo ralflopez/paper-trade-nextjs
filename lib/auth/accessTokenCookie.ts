@@ -1,26 +1,31 @@
-import { NextApiRequest } from "next"
 import jsHttpCookie from "cookie"
 import jsCookie from "js-cookie"
+import nookies, { parseCookies } from "nookies"
 
-const ACCESS_TOKEN_KEY = "accessToken_abcd"
+export const ACCESS_TOKEN_KEY = "accessToken_abcd"
 
 export const getAccessToken = (context: any) => {
-  let accessToken = ""
   if (typeof window === "undefined") {
-    const cookiesString = context?.req?.headers?.cookie
-    if (typeof cookiesString === "string") {
-      const cookies = jsHttpCookie.parse(cookiesString)
-      accessToken = cookies[ACCESS_TOKEN_KEY] || ""
-    }
+    console.log("Server")
+    const cookies = nookies.get(context)
+    console.log(cookies)
+    return cookies[ACCESS_TOKEN_KEY] || ""
   } else {
-    accessToken = jsCookie.get(ACCESS_TOKEN_KEY)
+    const cookies = parseCookies()
+    return cookies[ACCESS_TOKEN_KEY] || ""
   }
-
-  return accessToken
 }
 
-export const setAccessToken = (token: string) => {
-  jsCookie.set(ACCESS_TOKEN_KEY, token)
+export const getServerAccessToken = (context: any) => {
+  const cookies = nookies.get(context)
+  return cookies[ACCESS_TOKEN_KEY] || ""
+}
+
+export const setClientAccessToken = (token: string) => {
+  // jsCookie.set(ACCESS_TOKEN_KEY, token)
+  nookies.set(null, ACCESS_TOKEN_KEY, token, {
+    path: "/",
+  })
 }
 
 export const removeAccessToken = () => {
