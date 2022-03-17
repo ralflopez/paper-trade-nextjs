@@ -4,7 +4,7 @@ import { FormEvent } from "react"
 import { SIGNUP } from "../../graphql/query/auth"
 import { NexusGenArgTypes, NexusGenObjects } from "../../types/nexus-typegen"
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
-import { setAccessToken } from "../../lib/auth/accessTokenCookie"
+import { setClientAccessToken } from "../../lib/auth/accessTokenCookie"
 import {
   GetServerSidePropsContextExtended,
   withUser,
@@ -27,6 +27,8 @@ const Signup = () => {
       password: { value: password },
     } = (e.target as any).elements
 
+    ;(e.target as any).reset()
+
     try {
       await signup({
         variables: {
@@ -44,20 +46,11 @@ const Signup = () => {
 
   if (loading) return <div>Login Loading...</div>
   if (data) {
-    setAccessToken(data.signup.token)
+    setClientAccessToken(data.signup.token)
     client.resetStore()
     router.push("/")
   }
 
-  // return (
-  //   <form onSubmit={handleLogin}>
-  //     {error ? <div className='bg-red-400'>{error.message}</div> : null}
-  //     <input placeholder='Name' name='name' />
-  //     <input placeholder='Email' name='email' />
-  //     <input placeholder='Password' name='password' type='password' />
-  //     <button type='submit'>Sign up</button>
-  //   </form>
-  // )
   return (
     <Container>
       <div className='flex justify-center'>
@@ -74,24 +67,25 @@ const Signup = () => {
           <input
             placeholder='Name'
             name='name'
-            className='p-3 mb-4 bg-gray-200 rounded-md outline-none focus:border-2 border-primary'
+            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
           />
           <input
             placeholder='Email'
             name='email'
-            className='p-3 mb-4 bg-gray-200 rounded-md outline-none focus:border-2 border-primary'
+            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
           />
           <input
             placeholder='Password'
             name='password'
             type='password'
-            className='p-3 mb-4 bg-gray-200 rounded-md outline-none'
+            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
           />
           <button
+            disabled={loading ? true : false}
             type='submit'
             className='p-3 mt-4 text-white transition-colors duration-300 rounded-md bg-dark hover:bg-primary'
           >
-            Sign up
+            {loading ? "Loading..." : "Sign up"}
           </button>
         </form>
       </div>

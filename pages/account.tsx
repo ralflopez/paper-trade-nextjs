@@ -1,11 +1,9 @@
-import { useLazyQuery } from "@apollo/client"
 import { GetServerSideProps } from "next"
-import React, { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import React, { useState } from "react"
 import DepositModal from "../components/Account/DepositModal"
 import WithdrawModal from "../components/Account/WithdrawModal"
-import BuyModal from "../components/Trade/BuyModal"
-import SellModal from "../components/Trade/SellModal"
-import { GET_MY_PORFOLIO } from "../graphql/query/account/portfolio"
+import Container from "../components/General/Container"
 import usePortfolio from "../hooks/usePortfolio"
 import { withAuthenticatedUser } from "../lib/auth/withAuthenticatedUser"
 import { GetServerSidePropsContextExtended } from "../lib/auth/withUser"
@@ -16,6 +14,7 @@ interface Props {
 }
 
 const Account = ({ user }: Props) => {
+  const router = useRouter()
   const [showDepositModal, setDepositModal] = useState(false)
   const [showWithdrawModal, setWithdrawModal] = useState(false)
   const { portfolioData, portfolioQuery, portfolioError } = usePortfolio()
@@ -29,8 +28,8 @@ const Account = ({ user }: Props) => {
   }
 
   return (
-    <div>
-      {portfolioData && (
+    <Container>
+      {portfolioData?.myPortfolio && (
         <>
           <DepositModal
             open={showDepositModal}
@@ -53,10 +52,10 @@ const Account = ({ user }: Props) => {
       <div>
         <h3>Portfolio</h3>
         {portfolioError ? <div>{portfolioError.message}</div> : null}
-        {portfolioData ? (
+        {portfolioData?.myPortfolio ? (
           <div>{portfolioData.myPortfolio.buyingPower}</div>
         ) : null}
-        {portfolioData
+        {portfolioData?.myPortfolio
           ? portfolioData.myPortfolio.allocation.map((a) => (
               <div key={a.assetId} className='mt-4 bg-red-300'>
                 <p>Symbol: {a.symbol}</p>
@@ -71,7 +70,7 @@ const Account = ({ user }: Props) => {
         <button onClick={toggleDepositModal}>Deposit</button>
         <button onClick={toggleWithdrawModal}>Withdraw</button>
       </div>
-    </div>
+    </Container>
   )
 }
 

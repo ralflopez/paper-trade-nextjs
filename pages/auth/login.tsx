@@ -5,7 +5,7 @@ import { client } from "../../graphql"
 import { LOGIN } from "../../graphql/query/auth"
 import { NexusGenArgTypes, NexusGenObjects } from "../../types/nexus-typegen"
 import { GetServerSideProps } from "next"
-import { setAccessToken } from "../../lib/auth/accessTokenCookie"
+import { setClientAccessToken } from "../../lib/auth/accessTokenCookie"
 import {
   GetServerSidePropsContextExtended,
   withUser,
@@ -26,6 +26,8 @@ const Login = () => {
       password: { value: password },
     } = (e.target as any).elements
 
+    ;(e.target as any).reset()
+
     try {
       await login({
         variables: {
@@ -40,9 +42,8 @@ const Login = () => {
     }
   }
 
-  if (loading) return <div>Login Loading...</div>
   if (data) {
-    setAccessToken(data.login.token)
+    setClientAccessToken(data.login.token)
     client.resetStore()
     router.push("/")
   }
@@ -63,19 +64,20 @@ const Login = () => {
           <input
             placeholder='Email'
             name='email'
-            className='p-3 mb-4 bg-gray-200 rounded-md outline-none focus:border-2 border-primary'
+            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
           />
           <input
             placeholder='Password'
             name='password'
             type='password'
-            className='p-3 mb-4 bg-gray-200 rounded-md outline-none'
+            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
           />
           <button
+            disabled={loading ? true : false}
             type='submit'
-            className='p-3 mt-4 text-white transition-colors duration-300 rounded-md bg-dark hover:bg-primary'
+            className='p-3 mt-4 text-white transition-colors duration-300 rounded-sm bg-dark hover:bg-primary'
           >
-            Log In
+            {loading ? "Loading..." : "Log in"}
           </button>
         </form>
       </div>
