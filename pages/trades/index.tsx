@@ -1,20 +1,25 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import Container from "../../components/General/Container"
+import TradesListItem from "../../components/Trade/TradesListItem"
 import useLiveCoin from "../../hooks/trades/useLiveCoin"
 
 const Trades = () => {
-  const { cryptosList } = useLiveCoin()
+  const { cryptos } = useLiveCoin() // actual data
+
+  // console.log(cryptos)
+
   return (
-    <div>
-      {cryptosList.map((c) => (
-        <div key={c.rank}>
-          <p>{c.id}</p>
-          <p>{c.rank}</p>
-          <p>{c.name}</p>
-          <p>{c.priceUsd}</p>
-          <p>{c.changePercent24Hr}</p>
-        </div>
+    <Container>
+      <h2 className='mb-5 text-gray-400'>
+        <span>Assets</span>
+        <span className='ml-2 mr-2'>/</span>
+        <span className='font-bold text-gray-500'>Cryptocurrency</span>
+      </h2>
+      {cryptos.map((c) => (
+        <TradesListItem coin={c} key={c.id} />
       ))}
-    </div>
+      {/* <div>{cryptos[0]?.priceUsd}</div> */}
+    </Container>
   )
 }
 
