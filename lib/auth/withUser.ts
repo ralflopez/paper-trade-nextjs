@@ -19,7 +19,7 @@ export const withUser = (callback: Function) => {
       const { data } = await client.query({
         query: GET_MY_USER,
         context,
-        fetchPolicy: "network-only",
+        fetchPolicy: "cache-first",
       })
 
       extendedContext.req.user = data.getMyUser

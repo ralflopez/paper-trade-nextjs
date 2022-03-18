@@ -7,6 +7,11 @@ import SellModal from "../../components/Trade/SellModal"
 import useLiveCoin from "../../hooks/trades/useLiveCoin"
 import usePortfolio from "../../hooks/usePortfolio"
 import Image from "next/image"
+import { GetServerSideProps } from "next"
+import {
+  GetServerSidePropsContextExtended,
+  withUser,
+} from "../../lib/auth/withUser"
 
 const Coin = () => {
   const router = useRouter()
@@ -129,3 +134,13 @@ const Coin = () => {
 }
 
 export default Coin
+
+export const getServerSideProps: GetServerSideProps = withUser(
+  (context: GetServerSidePropsContextExtended) => {
+    return {
+      props: {
+        user: context.req.user,
+      },
+    }
+  }
+)
