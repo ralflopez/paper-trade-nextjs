@@ -71,18 +71,28 @@ const SellModal = ({
     <Modal title='Sell' toggle={toggle}>
       <div>
         <form onSubmit={handleSumbit}>
+          <div className='mb-4'>
+            <p>Available Balance</p>
+            <p className='text-xl'>{allocation ? allocation.total : 0}</p>
+          </div>
           <input
             value={amount}
             name='amount'
             type='number'
             onChange={handleAmount}
+            className='p-3 mb-4 bg-white rounded-sm outline-none focus:border-2 border-primary'
           />
-          <div>
-            Allocation:
-            {allocation ? allocation.total : 0}
+          <div className='mb-4'>
+            <p>Total</p>
+            <p className='text-xl'>
+              ${(Number(currentAsset.priceUsd) * Number(amount)).toFixed(2)}
+            </p>
           </div>
-          <div>Total: {Number(currentAsset.priceUsd) * Number(amount)}</div>
-          <button disabled={disabled} type='submit'>
+          <button
+            className='p-5 py-2 text-white duration-300 ease-out bg-gray-400 rounded-sm hover:bg-negative'
+            disabled={disabled}
+            type='submit'
+          >
             Sell
           </button>
         </form>
