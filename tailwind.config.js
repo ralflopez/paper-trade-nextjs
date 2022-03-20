@@ -12,6 +12,9 @@ module.exports = {
         positive: "#1DD25C",
         negative: "#EF595A",
       },
+      fontFamily: {
+        sans: ["Open Sans", "sans-serif"],
+      },
     },
   },
   plugins: [],
