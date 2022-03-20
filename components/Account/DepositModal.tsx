@@ -57,15 +57,23 @@ const DepositModal = ({ buyingPower, open, setOpen, refetch }: Props) => {
   return open ? (
     <Modal title='Deposit' toggle={toggle}>
       <div>
-        <p>Available: {buyingPower}</p>
         <form onSubmit={handleSumbit}>
+          <div className='mb-4'>
+            <p>Available Balance</p>
+            <p className='text-xl'>${buyingPower.toFixed(2)}</p>
+          </div>
           <input
             value={amount}
             name='amount'
             type='number'
             onChange={handleAmount}
+            className='p-3 mb-4 bg-white rounded-sm outline-none focus:border-2 border-primary'
           />
-          <button disabled={disabled} type='submit'>
+          <button
+            className='block p-5 py-2 text-white duration-300 ease-out rounded-sm cursor-pointer bg-dark hover:bg-positive transition-color'
+            disabled={disabled}
+            type='submit'
+          >
             Deposit
           </button>
         </form>

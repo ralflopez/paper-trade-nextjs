@@ -8,6 +8,8 @@ import usePortfolio from "../hooks/usePortfolio"
 import { withAuthenticatedUser } from "../lib/auth/withAuthenticatedUser"
 import { GetServerSidePropsContextExtended } from "../lib/auth/withUser"
 import { NexusGenObjects } from "../types/nexus-typegen"
+import Image from "next/image"
+import Link from "next/link"
 
 interface Props {
   user: NexusGenObjects["User"]
@@ -54,30 +56,55 @@ const Account = ({ user }: Props) => {
         <p className='text-2xl font-bold'>Hi, {user.name}</p>
         <p>{user.email}</p>
       </div>
+
       <div>
-        {portfolioError ? <div>{portfolioError.message}</div> : null}
         {portfolioData?.myPortfolio ? (
-          <div className='text-3xl font-medium'>
+          <div className='text-5xl font-medium'>
             ${portfolioData.myPortfolio.buyingPower.toFixed(2)}
           </div>
         ) : null}
+        <div className='mt-5'>
+          <button
+            className='p-5 py-2 text-white duration-300 ease-out rounded-sm bg-dark hover:bg-positive transition-color'
+            onClick={toggleDepositModal}
+          >
+            Deposit
+          </button>
+          <button
+            className='p-5 py-2 ml-2 text-white duration-300 ease-out bg-gray-400 rounded-sm hover:bg-negative'
+            onClick={toggleWithdrawModal}
+          >
+            Withdraw
+          </button>
+        </div>
+        <h3 className='mt-8 text-xl font-bold'>Assets</h3>
         {portfolioData?.myPortfolio
           ? portfolioData.myPortfolio.allocation.map((a) => (
-              <div
-                key={a.assetId}
-                className='mt-4 bg-white p-4 py-3 rounded-sm shadow-sm hover:bg-gray-200 duration-300 ease-out transition-colors'
-              >
-                <p>Symbol: {a.symbol}</p>
-                <p>Asset: {a.assetId}</p>
-                <p>Average Price: {a.average.toFixed(2)}</p>
-                <p>Total: {a.total}</p>
-              </div>
+              <Link href={`trades/${a.assetId}`} passHref key={a.assetId}>
+                <div className='p-4 py-3 mt-4 transition-colors duration-300 ease-out bg-white rounded-sm shadow-sm hover:bg-gray-200'>
+                  <div className='flex items-center'>
+                    <Image
+                      src={`https://assets.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`}
+                      alt={a.symbol}
+                      width={45}
+                      height={45}
+                    />
+                    <p className='ml-3'>
+                      {a.assetId[0].toUpperCase() + a.assetId.substring(1)}
+                      <span className='ml-2 text-gray-600'>({a.symbol})</span>
+                    </p>
+                  </div>
+                  <p className='mt-2'>
+                    Average Price:{" "}
+                    <span className='font-bold'>{a.average.toFixed(2)}</span>
+                  </p>
+                  <p>
+                    Total: <span className='font-bold'>{a.total}</span>
+                  </p>
+                </div>
+              </Link>
             ))
           : null}
-      </div>
-      <div className=''>
-        <button onClick={toggleDepositModal}>Deposit</button>
-        <button onClick={toggleWithdrawModal}>Withdraw</button>
       </div>
     </Container>
   )

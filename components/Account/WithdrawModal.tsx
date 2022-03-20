@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import React, { useState } from "react"
 import { toast } from "react-toastify"
-import { DEPOSIT, WITHDRAW } from "../../graphql/query/account/fund"
+import { WITHDRAW } from "../../graphql/query/account/fund"
 import { GET_MY_PORFOLIO } from "../../graphql/query/account/portfolio"
 import usePortfolio from "../../hooks/usePortfolio"
 import Modal from "../General/Modal"
@@ -47,6 +47,7 @@ const WithdrawModal = ({ open, setOpen, refetch, buyingPower }: Props) => {
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const value = Number(amount)
+    console.log("yeey")
     if (value <= 0) return
     try {
       toast.info("Tranasction Loading...")
@@ -68,14 +69,22 @@ const WithdrawModal = ({ open, setOpen, refetch, buyingPower }: Props) => {
     <Modal title='Withdraw' toggle={toggle}>
       <div>
         <form onSubmit={handleSumbit}>
-          <p>Available: {buyingPower}</p>
+          <div className='mb-4'>
+            <p>Available Balance</p>
+            <p className='text-xl'>${buyingPower.toFixed(2)}</p>
+          </div>
           <input
             value={amount}
             name='amount'
             type='number'
             onChange={handleAmount}
+            className='p-3 mb-4 bg-white rounded-sm outline-none focus:border-2 border-primary'
           />
-          <button disabled={disabled} type='submit'>
+          <button
+            className='block p-5 py-2 text-white duration-300 ease-out rounded-sm cursor-pointer bg-dark hover:bg-positive transition-color'
+            disabled={disabled}
+            type='submit'
+          >
             Withdraw
           </button>
         </form>
