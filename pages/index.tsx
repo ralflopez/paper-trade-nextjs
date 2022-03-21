@@ -48,7 +48,7 @@ const Home = ({ user }: Props) => {
                 Practice trading without loosing money
               </p>
               <button className='px-6 py-4 text-white transition-all duration-300 ease-out rounded-sm bg-dark hover:bg-gray-800 hover:scale-105'>
-                <Link href='/account' passHref>
+                <Link href='/trades' passHref>
                   <a>Start Now</a>
                 </Link>
               </button>

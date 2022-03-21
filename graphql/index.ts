@@ -46,9 +46,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 })
 
 const getNewToken = async (operation: Operation) => {
-  console.log("GET NEW TOKEN LINK")
   const refreshToken = operation.getContext().req.cookies.refresh
-  console.log("REFRESH TOKEN: " + refreshToken)
   operation.setContext({
     headers: {
       Cookie: cookie.serialize("refresh", refreshToken),
@@ -61,13 +59,11 @@ const getNewToken = async (operation: Operation) => {
   })
 
   const accessToken = result.data.refreshToken.token
-  console.log("GOT NEW ACCESS TOKEN: " + accessToken)
   return accessToken
 }
 
 const refreshTokenLink: any = onError(
   ({ graphQLErrors, operation, forward }): any => {
-    console.log("REFRESH TOKEN LINK")
     if (graphQLErrors) {
       for (let err of graphQLErrors) {
         if (err.message === "jwt expired") {
