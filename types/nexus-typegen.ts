@@ -3,19 +3,24 @@
  * Do not make changes to this file directly
  */
 
-
-import type { Context } from "./src/config/context"
+// import type { Context } from "./src/config/context"
 import type { core } from "nexus"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
     /**
      * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
-    datetime<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+    datetime<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>
+    ): void // "DateTime";
     /**
      * A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.
      */
-    email<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "EmailAddress";
+    email<FieldName extends string>(
+      fieldName: FieldName,
+      opts?: core.CommonInputFieldConfig<TypeName, FieldName>
+    ): void // "EmailAddress";
   }
 }
 declare global {
@@ -23,33 +28,41 @@ declare global {
     /**
      * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
-    datetime<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+    datetime<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "DateTime";
     /**
      * A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.
      */
-    email<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "EmailAddress";
+    email<FieldName extends string>(
+      fieldName: FieldName,
+      ...opts: core.ScalarOutSpread<TypeName, FieldName>
+    ): void // "EmailAddress";
   }
 }
-
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
 }
 
 export interface NexusGenInputs {
-  LoginInput: { // input type
-    email: string; // String!
-    password: string; // String!
+  LoginInput: {
+    // input type
+    email: string // String!
+    password: string // String!
   }
-  SignupInput: { // input type
-    email: string; // String!
-    name: string; // String!
-    password: string; // String!
+  SignupInput: {
+    // input type
+    email: string // String!
+    name: string // String!
+    password: string // String!
   }
-  UserUpdateInput: { // input type
-    email: NexusGenScalars['EmailAddress']; // EmailAddress!
-    name: string; // String!
-    password: string; // String!
+  UserUpdateInput: {
+    // input type
+    email: NexusGenScalars["EmailAddress"] // EmailAddress!
+    name: string // String!
+    password: string // String!
   }
 }
 
@@ -70,219 +83,245 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  AssetAllocationOutput: { // root type
-    assetId: string; // String!
-    average: number; // Float!
-    symbol: string; // String!
-    total: number; // Float!
+  AssetAllocationOutput: {
+    // root type
+    assetId: string // String!
+    average: number // Float!
+    symbol: string // String!
+    total: number // Float!
   }
-  AuthPayload: { // root type
-    token: string; // String!
-    user: NexusGenRootTypes['User']; // User!
+  AuthPayload: {
+    // root type
+    token: string // String!
+    user: NexusGenRootTypes["User"] // User!
   }
-  Mutation: {};
-  PortfolioOutput: { // root type
-    allocation: NexusGenRootTypes['AssetAllocationOutput'][]; // [AssetAllocationOutput!]!
-    buyingPower: number; // Float!
+  Mutation: {}
+  PortfolioOutput: {
+    // root type
+    allocation: NexusGenRootTypes["AssetAllocationOutput"][] // [AssetAllocationOutput!]!
+    buyingPower: number // Float!
   }
-  Query: {};
-  Transaction: { // root type
-    amount: number; // Float!
-    assetId: string; // String!
-    assetType: NexusGenEnums['AssetType']; // AssetType!
-    id: string; // ID!
-    symbol: string; // String!
-    timestamp: NexusGenScalars['DateTime']; // DateTime!
-    type: NexusGenEnums['TransactionType']; // TransactionType!
-    userId: string; // String!
-    valueUsd: number; // Float!
+  Query: {}
+  Transaction: {
+    // root type
+    amount: number // Float!
+    assetId: string // String!
+    assetType: NexusGenEnums["AssetType"] // AssetType!
+    id: string // ID!
+    symbol: string // String!
+    timestamp: NexusGenScalars["DateTime"] // DateTime!
+    type: NexusGenEnums["TransactionType"] // TransactionType!
+    userId: string // String!
+    valueUsd: number // Float!
   }
-  User: { // root type
-    email: NexusGenScalars['EmailAddress']; // EmailAddress!
-    id: string; // ID!
-    name: string; // String!
-    role: NexusGenEnums['Role']; // Role!
+  User: {
+    // root type
+    email: NexusGenScalars["EmailAddress"] // EmailAddress!
+    id: string // ID!
+    name: string // String!
+    role: NexusGenEnums["Role"] // Role!
   }
 }
 
-export interface NexusGenInterfaces {
-}
+export interface NexusGenInterfaces {}
 
-export interface NexusGenUnions {
-}
+export interface NexusGenUnions {}
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
+export type NexusGenAllTypes = NexusGenRootTypes &
+  NexusGenScalars &
+  NexusGenEnums
 
 export interface NexusGenFieldTypes {
-  AssetAllocationOutput: { // field return type
-    assetId: string; // String!
-    average: number; // Float!
-    symbol: string; // String!
-    total: number; // Float!
+  AssetAllocationOutput: {
+    // field return type
+    assetId: string // String!
+    average: number // Float!
+    symbol: string // String!
+    total: number // Float!
   }
-  AuthPayload: { // field return type
-    token: string; // String!
-    user: NexusGenRootTypes['User']; // User!
+  AuthPayload: {
+    // field return type
+    token: string // String!
+    user: NexusGenRootTypes["User"] // User!
   }
-  Mutation: { // field return type
-    buy: NexusGenRootTypes['Transaction'] | null; // Transaction
-    deleteUser: NexusGenRootTypes['User'] | null; // User
-    deposit: NexusGenRootTypes['Transaction'] | null; // Transaction
-    login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
-    sell: NexusGenRootTypes['Transaction'] | null; // Transaction
-    signup: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
-    updateUser: NexusGenRootTypes['User'] | null; // User
-    withdraw: NexusGenRootTypes['Transaction'] | null; // Transaction
+  Mutation: {
+    // field return type
+    buy: NexusGenRootTypes["Transaction"] | null // Transaction
+    deleteUser: NexusGenRootTypes["User"] | null // User
+    deposit: NexusGenRootTypes["Transaction"] | null // Transaction
+    login: NexusGenRootTypes["AuthPayload"] | null // AuthPayload
+    sell: NexusGenRootTypes["Transaction"] | null // Transaction
+    signup: NexusGenRootTypes["AuthPayload"] | null // AuthPayload
+    updateUser: NexusGenRootTypes["User"] | null // User
+    withdraw: NexusGenRootTypes["Transaction"] | null // Transaction
   }
-  PortfolioOutput: { // field return type
-    allocation: NexusGenRootTypes['AssetAllocationOutput'][]; // [AssetAllocationOutput!]!
-    buyingPower: number; // Float!
+  PortfolioOutput: {
+    // field return type
+    allocation: NexusGenRootTypes["AssetAllocationOutput"][] // [AssetAllocationOutput!]!
+    buyingPower: number // Float!
   }
-  Query: { // field return type
-    getMyUser: NexusGenRootTypes['User'] | null; // User
-    getUser: NexusGenRootTypes['User'] | null; // User
-    getUsers: NexusGenRootTypes['User'][]; // [User!]!
-    logout: boolean | null; // Boolean
-    myPortfolio: NexusGenRootTypes['PortfolioOutput'] | null; // PortfolioOutput
-    refreshToken: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
-    test: string | null; // String
-    transactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
+  Query: {
+    // field return type
+    getMyUser: NexusGenRootTypes["User"] | null // User
+    getUser: NexusGenRootTypes["User"] | null // User
+    getUsers: NexusGenRootTypes["User"][] // [User!]!
+    logout: boolean | null // Boolean
+    myPortfolio: NexusGenRootTypes["PortfolioOutput"] | null // PortfolioOutput
+    refreshToken: NexusGenRootTypes["AuthPayload"] | null // AuthPayload
+    test: string | null // String
+    transactions: NexusGenRootTypes["Transaction"][] // [Transaction!]!
   }
-  Transaction: { // field return type
-    amount: number; // Float!
-    assetId: string; // String!
-    assetType: NexusGenEnums['AssetType']; // AssetType!
-    id: string; // ID!
-    symbol: string; // String!
-    timestamp: NexusGenScalars['DateTime']; // DateTime!
-    type: NexusGenEnums['TransactionType']; // TransactionType!
-    user: NexusGenRootTypes['User']; // User!
-    userId: string; // String!
-    valueUsd: number; // Float!
+  Transaction: {
+    // field return type
+    amount: number // Float!
+    assetId: string // String!
+    assetType: NexusGenEnums["AssetType"] // AssetType!
+    id: string // ID!
+    symbol: string // String!
+    timestamp: NexusGenScalars["DateTime"] // DateTime!
+    type: NexusGenEnums["TransactionType"] // TransactionType!
+    user: NexusGenRootTypes["User"] // User!
+    userId: string // String!
+    valueUsd: number // Float!
   }
-  User: { // field return type
-    email: NexusGenScalars['EmailAddress']; // EmailAddress!
-    id: string; // ID!
-    name: string; // String!
-    role: NexusGenEnums['Role']; // Role!
+  User: {
+    // field return type
+    email: NexusGenScalars["EmailAddress"] // EmailAddress!
+    id: string // ID!
+    name: string // String!
+    role: NexusGenEnums["Role"] // Role!
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  AssetAllocationOutput: { // field return type name
-    assetId: 'String'
-    average: 'Float'
-    symbol: 'String'
-    total: 'Float'
+  AssetAllocationOutput: {
+    // field return type name
+    assetId: "String"
+    average: "Float"
+    symbol: "String"
+    total: "Float"
   }
-  AuthPayload: { // field return type name
-    token: 'String'
-    user: 'User'
+  AuthPayload: {
+    // field return type name
+    token: "String"
+    user: "User"
   }
-  Mutation: { // field return type name
-    buy: 'Transaction'
-    deleteUser: 'User'
-    deposit: 'Transaction'
-    login: 'AuthPayload'
-    sell: 'Transaction'
-    signup: 'AuthPayload'
-    updateUser: 'User'
-    withdraw: 'Transaction'
+  Mutation: {
+    // field return type name
+    buy: "Transaction"
+    deleteUser: "User"
+    deposit: "Transaction"
+    login: "AuthPayload"
+    sell: "Transaction"
+    signup: "AuthPayload"
+    updateUser: "User"
+    withdraw: "Transaction"
   }
-  PortfolioOutput: { // field return type name
-    allocation: 'AssetAllocationOutput'
-    buyingPower: 'Float'
+  PortfolioOutput: {
+    // field return type name
+    allocation: "AssetAllocationOutput"
+    buyingPower: "Float"
   }
-  Query: { // field return type name
-    getMyUser: 'User'
-    getUser: 'User'
-    getUsers: 'User'
-    logout: 'Boolean'
-    myPortfolio: 'PortfolioOutput'
-    refreshToken: 'AuthPayload'
-    test: 'String'
-    transactions: 'Transaction'
+  Query: {
+    // field return type name
+    getMyUser: "User"
+    getUser: "User"
+    getUsers: "User"
+    logout: "Boolean"
+    myPortfolio: "PortfolioOutput"
+    refreshToken: "AuthPayload"
+    test: "String"
+    transactions: "Transaction"
   }
-  Transaction: { // field return type name
-    amount: 'Float'
-    assetId: 'String'
-    assetType: 'AssetType'
-    id: 'ID'
-    symbol: 'String'
-    timestamp: 'DateTime'
-    type: 'TransactionType'
-    user: 'User'
-    userId: 'String'
-    valueUsd: 'Float'
+  Transaction: {
+    // field return type name
+    amount: "Float"
+    assetId: "String"
+    assetType: "AssetType"
+    id: "ID"
+    symbol: "String"
+    timestamp: "DateTime"
+    type: "TransactionType"
+    user: "User"
+    userId: "String"
+    valueUsd: "Float"
   }
-  User: { // field return type name
-    email: 'EmailAddress'
-    id: 'ID'
-    name: 'String'
-    role: 'Role'
+  User: {
+    // field return type name
+    email: "EmailAddress"
+    id: "ID"
+    name: "String"
+    role: "Role"
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    buy: { // args
-      amount: number; // Float!
-      assetId: string; // String!
+    buy: {
+      // args
+      amount: number // Float!
+      assetId: string // String!
     }
-    deleteUser: { // args
-      id: string; // ID!
+    deleteUser: {
+      // args
+      id: string // ID!
     }
-    deposit: { // args
-      amount: number; // Float!
+    deposit: {
+      // args
+      amount: number // Float!
     }
-    login: { // args
-      data: NexusGenInputs['LoginInput']; // LoginInput!
+    login: {
+      // args
+      data: NexusGenInputs["LoginInput"] // LoginInput!
     }
-    sell: { // args
-      amount: number; // Float!
-      assetId: string; // String!
+    sell: {
+      // args
+      amount: number // Float!
+      assetId: string // String!
     }
-    signup: { // args
-      data: NexusGenInputs['SignupInput']; // SignupInput!
+    signup: {
+      // args
+      data: NexusGenInputs["SignupInput"] // SignupInput!
     }
-    updateUser: { // args
-      data: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
-      id: string; // ID!
+    updateUser: {
+      // args
+      data: NexusGenInputs["UserUpdateInput"] // UserUpdateInput!
+      id: string // ID!
     }
-    withdraw: { // args
-      amount: number; // Float!
+    withdraw: {
+      // args
+      amount: number // Float!
     }
   }
   Query: {
-    getUser: { // args
-      id: string; // ID!
+    getUser: {
+      // args
+      id: string // ID!
     }
   }
 }
 
-export interface NexusGenAbstractTypeMembers {
-}
+export interface NexusGenAbstractTypeMembers {}
 
-export interface NexusGenTypeInterfaces {
-}
+export interface NexusGenTypeInterfaces {}
 
-export type NexusGenObjectNames = keyof NexusGenObjects;
+export type NexusGenObjectNames = keyof NexusGenObjects
 
-export type NexusGenInputNames = keyof NexusGenInputs;
+export type NexusGenInputNames = keyof NexusGenInputs
 
-export type NexusGenEnumNames = keyof NexusGenEnums;
+export type NexusGenEnumNames = keyof NexusGenEnums
 
-export type NexusGenInterfaceNames = never;
+export type NexusGenInterfaceNames = never
 
-export type NexusGenScalarNames = keyof NexusGenScalars;
+export type NexusGenScalarNames = keyof NexusGenScalars
 
-export type NexusGenUnionNames = never;
+export type NexusGenUnionNames = never
 
-export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
+export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never
 
-export type NexusGenAbstractsUsingStrategyResolveType = never;
+export type NexusGenAbstractsUsingStrategyResolveType = never
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {
@@ -293,43 +332,52 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: Context;
-  inputTypes: NexusGenInputs;
-  rootTypes: NexusGenRootTypes;
-  inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
-  argTypes: NexusGenArgTypes;
-  fieldTypes: NexusGenFieldTypes;
-  fieldTypeNames: NexusGenFieldTypeNames;
-  allTypes: NexusGenAllTypes;
-  typeInterfaces: NexusGenTypeInterfaces;
-  objectNames: NexusGenObjectNames;
-  inputNames: NexusGenInputNames;
-  enumNames: NexusGenEnumNames;
-  interfaceNames: NexusGenInterfaceNames;
-  scalarNames: NexusGenScalarNames;
-  unionNames: NexusGenUnionNames;
-  allInputTypes: NexusGenTypes['inputNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['scalarNames'];
-  allOutputTypes: NexusGenTypes['objectNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['unionNames'] | NexusGenTypes['interfaceNames'] | NexusGenTypes['scalarNames'];
-  allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes']
-  abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames'];
-  abstractTypeMembers: NexusGenAbstractTypeMembers;
-  objectsUsingAbstractStrategyIsTypeOf: NexusGenObjectsUsingAbstractStrategyIsTypeOf;
-  abstractsUsingStrategyResolveType: NexusGenAbstractsUsingStrategyResolveType;
-  features: NexusGenFeaturesConfig;
+  // context: Context
+  inputTypes: NexusGenInputs
+  rootTypes: NexusGenRootTypes
+  inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars
+  argTypes: NexusGenArgTypes
+  fieldTypes: NexusGenFieldTypes
+  fieldTypeNames: NexusGenFieldTypeNames
+  allTypes: NexusGenAllTypes
+  typeInterfaces: NexusGenTypeInterfaces
+  objectNames: NexusGenObjectNames
+  inputNames: NexusGenInputNames
+  enumNames: NexusGenEnumNames
+  interfaceNames: NexusGenInterfaceNames
+  scalarNames: NexusGenScalarNames
+  unionNames: NexusGenUnionNames
+  allInputTypes:
+    | NexusGenTypes["inputNames"]
+    | NexusGenTypes["enumNames"]
+    | NexusGenTypes["scalarNames"]
+  allOutputTypes:
+    | NexusGenTypes["objectNames"]
+    | NexusGenTypes["enumNames"]
+    | NexusGenTypes["unionNames"]
+    | NexusGenTypes["interfaceNames"]
+    | NexusGenTypes["scalarNames"]
+  allNamedTypes:
+    | NexusGenTypes["allInputTypes"]
+    | NexusGenTypes["allOutputTypes"]
+  abstractTypes: NexusGenTypes["interfaceNames"] | NexusGenTypes["unionNames"]
+  abstractTypeMembers: NexusGenAbstractTypeMembers
+  objectsUsingAbstractStrategyIsTypeOf: NexusGenObjectsUsingAbstractStrategyIsTypeOf
+  abstractsUsingStrategyResolveType: NexusGenAbstractsUsingStrategyResolveType
+  features: NexusGenFeaturesConfig
 }
 
-
 declare global {
-  interface NexusGenPluginTypeConfig<TypeName extends string> {
-  }
-  interface NexusGenPluginInputTypeConfig<TypeName extends string> {
-  }
-  interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
-  }
-  interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-  }
-  interface NexusGenPluginSchemaConfig {
-  }
-  interface NexusGenPluginArgConfig {
-  }
+  interface NexusGenPluginTypeConfig<TypeName extends string> {}
+  interface NexusGenPluginInputTypeConfig<TypeName extends string> {}
+  interface NexusGenPluginFieldConfig<
+    TypeName extends string,
+    FieldName extends string
+  > {}
+  interface NexusGenPluginInputFieldConfig<
+    TypeName extends string,
+    FieldName extends string
+  > {}
+  interface NexusGenPluginSchemaConfig {}
+  interface NexusGenPluginArgConfig {}
 }
