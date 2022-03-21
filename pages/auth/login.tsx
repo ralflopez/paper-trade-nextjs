@@ -11,6 +11,8 @@ import {
   withUser,
 } from "../../lib/auth/withUser"
 import Container from "../../components/General/Container"
+import Input from "../../components/Form/Input"
+import Button from "../../components/Form/Button"
 
 const Login = () => {
   const [login, { loading, error, data }] = useMutation<
@@ -61,24 +63,9 @@ const Login = () => {
               {error.message}
             </div>
           )}
-          <input
-            placeholder='Email'
-            name='email'
-            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
-          />
-          <input
-            placeholder='Password'
-            name='password'
-            type='password'
-            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
-          />
-          <button
-            disabled={loading ? true : false}
-            type='submit'
-            className='p-3 mt-4 text-white transition-colors duration-300 rounded-sm bg-dark hover:bg-primary'
-          >
-            {loading ? "Loading..." : "Log in"}
-          </button>
+          <Input name='email' placeholder='Email' />
+          <Input name='password' placeholder='Password' type='password' />
+          <Button>{loading ? "Loading..." : "Log in"}</Button>
         </form>
       </div>
     </Container>
