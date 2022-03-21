@@ -28,12 +28,14 @@ const Navbar = () => {
         <div className='flex items-center justify-between w-11/12 h-full flex-coli md:flex-row md:w-10/12 max-w-7xl'>
           <div className='flex justify-between w-full'>
             <Link href='/' passHref>
-              <Image
-                src='/paper-trade-logo.svg'
-                alt='Paper Trade'
-                width={30}
-                height={30}
-              />
+              <a>
+                <Image
+                  src='/paper-trade-logo.svg'
+                  alt='Paper Trade'
+                  width={40}
+                  height={40}
+                />
+              </a>
             </Link>
             <div
               className='grid p-1 transition-colors duration-300 ease-out bg-gray-200 rounded-full cursor-pointer md:hidden place-items-center hover:bg-gray-300'
