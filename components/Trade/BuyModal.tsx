@@ -88,7 +88,7 @@ const BuyModal = ({
             </p>
           </div>
           <button
-            className='p-5 py-2 text-white duration-300 ease-out rounded-sm cursor-pointer bg-dark hover:bg-positive transition-color'
+            className='p-5 py-3 text-white duration-300 ease-out rounded-md cursor-pointer bg-dark hover:bg-positive transition-color'
             disabled={disabled}
             type='submit'
           >

@@ -80,8 +80,10 @@ const Coin = () => {
               </span>
             </div>
 
-            <button className='hidden p-5 py-2 text-white rounded-sm bg-dark md:block'>
-              <Link href='/account'>View Portfolio</Link>
+            <button className='hidden p-5 py-3 text-white transition-all duration-300 ease-out rounded-md bg-dark md:block hover:scale-105 hover:bg-slate-800'>
+              <Link href='/account'>
+                <a>View Portfolio</a>
+              </Link>
             </button>
           </div>
           <div className='flex items-end mb-7'>
@@ -94,13 +96,13 @@ const Coin = () => {
           </div>
           <div className='mb-9'>
             <button
-              className='p-5 py-2 text-white duration-300 ease-out rounded-sm bg-dark hover:bg-positive transition-color'
+              className='p-5 py-3 text-white duration-300 ease-out rounded-md bg-dark hover:bg-positive transition-color'
               onClick={toggleBuyModal}
             >
               Buy
             </button>
             <button
-              className='p-5 py-2 ml-2 text-white duration-300 ease-out bg-gray-400 rounded-sm hover:bg-negative'
+              className='p-5 py-3 ml-2 text-white duration-300 ease-out bg-gray-400 rounded-md hover:bg-negative'
               onClick={toggleSellModal}
             >
               Sell

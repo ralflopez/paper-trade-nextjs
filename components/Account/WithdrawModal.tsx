@@ -81,7 +81,7 @@ const WithdrawModal = ({ open, setOpen, refetch, buyingPower }: Props) => {
             className='p-3 mb-4 bg-white rounded-sm outline-none focus:border-2 border-primary'
           />
           <button
-            className='block p-5 py-2 text-white duration-300 ease-out rounded-sm cursor-pointer bg-dark hover:bg-positive transition-color'
+            className='block p-5 py-3 text-white duration-300 ease-out rounded-md cursor-pointer bg-dark hover:bg-positive transition-color'
             disabled={disabled}
             type='submit'
           >

@@ -89,7 +89,7 @@ const SellModal = ({
             </p>
           </div>
           <button
-            className='p-5 py-2 text-white duration-300 ease-out bg-gray-400 rounded-sm hover:bg-negative'
+            className='p-5 py-3 text-white duration-300 ease-out bg-gray-400 rounded-md hover:bg-negative'
             disabled={disabled}
             type='submit'
           >

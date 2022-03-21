@@ -65,13 +65,13 @@ const Account = ({ user }: Props) => {
         ) : null}
         <div className='mt-5'>
           <button
-            className='p-5 py-2 text-white duration-300 ease-out rounded-sm bg-dark hover:bg-positive transition-color'
+            className='p-5 py-3 text-white duration-300 ease-out rounded-md bg-dark hover:bg-positive transition-color'
             onClick={toggleDepositModal}
           >
             Deposit
           </button>
           <button
-            className='p-5 py-2 ml-2 text-white duration-300 ease-out bg-gray-400 rounded-sm hover:bg-negative'
+            className='p-5 py-3 ml-2 text-white duration-300 ease-out bg-gray-400 rounded-md hover:bg-negative'
             onClick={toggleWithdrawModal}
           >
             Withdraw
@@ -81,7 +81,7 @@ const Account = ({ user }: Props) => {
         {portfolioData?.myPortfolio
           ? portfolioData.myPortfolio.allocation.map((a) => (
               <Link href={`trades/${a.assetId}`} passHref key={a.assetId}>
-                <div className='p-4 py-3 mt-4 transition-colors duration-300 ease-out bg-white rounded-sm shadow-sm hover:bg-gray-200'>
+                <div className='p-4 py-3 mt-4 transition-colors duration-300 ease-out bg-white rounded-md shadow-sm hover:bg-gray-200'>
                   <div className='flex items-center'>
                     <Image
                       src={`https://assets.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`}

@@ -18,7 +18,7 @@ const Modal = ({ title, toggle, children }: Props) => {
         className='absolute top-0 left-0 z-40 w-full h-full bg-slate-800 opacity-40 backdrop-blur-3xl'
         onClick={handleToggle}
       ></div>
-      <div className='absolute z-50 pb-4 -translate-x-1/2 bg-gray-200 rounded-sm shadow-sm left-1/2 top-8'>
+      <div className='absolute z-50 pb-4 -translate-x-1/2 bg-gray-200 rounded-md shadow-sm left-1/2 top-8'>
         <div className='flex items-center justify-between px-3 py-2 bg-white w-96'>
           <h5 className='font-bold'>{title ? title : " "}</h5>
           <div

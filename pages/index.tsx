@@ -47,7 +47,7 @@ const Home = ({ user }: Props) => {
               <p className='text-xl mb-7'>
                 Practice trading without loosing money
               </p>
-              <button className='px-6 py-4 text-white transition-all duration-300 ease-out rounded-sm bg-dark hover:bg-gray-800 hover:scale-105'>
+              <button className='px-6 py-4 text-white transition-all duration-300 ease-out rounded-md bg-dark hover:bg-gray-800 hover:scale-105'>
                 <Link href='/trades' passHref>
                   <a>Start Now</a>
                 </Link>
