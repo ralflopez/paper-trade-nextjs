@@ -13,10 +13,7 @@ module.exports = {
         negative: "#EF595A",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-      },
-      borderWidth: {
-        1: "1px",
+        sans: ["Open Sans", "sans-serif"],
       },
     },
   },
