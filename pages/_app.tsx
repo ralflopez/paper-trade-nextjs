@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 import NProgress from "nprogress"
 import "../styles/nprogress.css"
 import Router from "next/router"
+import Head from "next/head"
 
 NProgress.configure({
   showSpinner: false,
@@ -27,12 +28,17 @@ Router.events.on("routeChangeError", () => {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client}>
-      <Layout>
-        <ToastContainer hideProgressBar={true} />
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <>
+      <ApolloProvider client={client}>
+        <Layout>
+          <Head>
+            <title>Paper Trade</title>
+          </Head>
+          <ToastContainer hideProgressBar={true} />
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+    </>
   )
 }
 
