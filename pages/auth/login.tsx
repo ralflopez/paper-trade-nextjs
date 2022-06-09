@@ -13,6 +13,7 @@ import {
 import Container from "../../components/General/Container"
 import Input from "../../components/Form/Input"
 import Button from "../../components/Form/Button"
+import Link from "next/link"
 
 const Login = () => {
   const [login, { loading, error, data }] = useMutation<
@@ -65,6 +66,9 @@ const Login = () => {
           )}
           <Input name='email' placeholder='Email' />
           <Input name='password' placeholder='Password' type='password' />
+          <Link href='/auth/signup' passHref>
+            <a className='text-sm'>Create an account</a>
+          </Link>
           <Button>{loading ? "Loading..." : "Log in"}</Button>
         </form>
       </div>

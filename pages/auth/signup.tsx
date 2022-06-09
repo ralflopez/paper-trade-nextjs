@@ -11,6 +11,8 @@ import {
 } from "../../lib/auth/withUser"
 import { client } from "../../graphql"
 import Container from "../../components/General/Container"
+import Link from "next/link"
+import Input from "../../components/Form/Input"
 
 const Signup = () => {
   const [signup, { loading, error, data }] = useMutation<
@@ -64,22 +66,12 @@ const Signup = () => {
               {error.message}
             </div>
           )}
-          <input
-            placeholder='Name'
-            name='name'
-            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
-          />
-          <input
-            placeholder='Email'
-            name='email'
-            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
-          />
-          <input
-            placeholder='Password'
-            name='password'
-            type='password'
-            className='p-3 mb-4 bg-gray-200 rounded-sm outline-none focus:border-2 border-primary'
-          />
+          <Input placeholder='Name' name='name' />
+          <Input placeholder='Email' name='email' />
+          <Input placeholder='Password' name='password' type='password' />
+          <Link href='/auth/login' passHref>
+            <a className='text-sm'>I already have an account</a>
+          </Link>
           <button
             disabled={loading ? true : false}
             type='submit'
