@@ -28,7 +28,7 @@ const defaultOptions: DefaultOptions = {
 }
 
 const httpLink = createHttpLink({
-  uri: process.env.GRAPHQL_URL || "http://localhost:4000/graphql",
+  uri: process.env.GRAPHQL_URL,
   credentials: "include",
 })
 
