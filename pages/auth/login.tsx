@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
-import { FormEvent } from "react"
+import { FormEvent, useState } from "react"
 import { client } from "../../graphql"
 import { LOGIN } from "../../graphql/query/auth"
 import { NexusGenArgTypes, NexusGenObjects } from "../../types/nexus-typegen"
@@ -21,6 +21,9 @@ const Login = () => {
     NexusGenArgTypes["Mutation"]["login"]
   >(LOGIN)
   const router = useRouter()
+
+  const [email, setEmail] = useState("demo@email.com")
+  const [password, setPassword] = useState("password")
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -64,8 +67,19 @@ const Login = () => {
               {error.message}
             </div>
           )}
-          <Input name='email' placeholder='Email' />
-          <Input name='password' placeholder='Password' type='password' />
+          <Input
+            name='email'
+            placeholder='Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            name='password'
+            placeholder='Password'
+            type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <Link href='/auth/signup' passHref>
             <a className='text-sm'>Create an account</a>
           </Link>
